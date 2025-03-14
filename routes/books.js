@@ -55,7 +55,7 @@ router
       books.push(newBook);
       res.json(newBook);
     } else {
-      res.json({ error: "insufficient data to add book" });
+      res.status(400).json({ error: "insufficient data to add book" });
     }
   });
 
