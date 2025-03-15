@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title><%=title %></title>
 </head>
 <body>
-    <% books.forEach(book => { %>
-        <h2><%= book.title %></h2>
-        <h2>by: <%= book.author %></h2>
-        <h3><%= book.description %></h3>
-        <h4><%= book.genre %></h4>
-        <h4><%= book.publicationYear %></h4>
-    <% }); %>
+    <div class="books">
+        <% books.forEach(book => { %>
+            <div class="book">
+                <h2><%= book.title %></h2>
+                <h2>by: <%= book.author %></h2>
+                <h3><%= book.description %></h3>
+                <h4><%= book.genre %></h4>
+                <h4><%= book.publicationYear %></h4>
+            </div>
+        <% }); %>
+    </div>
 </body>
 </html>

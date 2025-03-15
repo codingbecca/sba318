@@ -1,0 +1,38 @@
+:root {
+    --bg-main: #23212c;
+    --bg-secondary: #383640;
+    --text-main: #dbc0f6;
+    --text-secondary: #c8a1f1;
+
+}
+
+body{
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    text-align: center;
+}
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+}
+
+.book{
+    max-width: 400px;
+    margin: 2rem;
+    background-color: var(--bg-secondary);
+}
+
+input, textarea{
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    margin: 0.25rem;
+    border-radius: 5px;
+}
+
+button{
+    background-color: #4e4c55;
+    color: var(--text-secondary);
+    border-radius: 5px;
+}
