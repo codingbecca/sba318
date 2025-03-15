@@ -8,30 +8,38 @@ router
   .route("/")
   // get all books in the library or all books matching a query
   .get((req, res) => {
-    const { isbn, title, author, genre, publicationYear } = req.query
-    let filteredBooks = books
+    const { isbn, title, author, genre, publicationYear } = req.query;
+    let filteredBooks = books;
 
-    if(isbn) {
-        filteredBooks = filteredBooks.filter(book => book.isbn.includes(isbn))
+    if (isbn) {
+      filteredBooks = filteredBooks.filter((book) => book.isbn.includes(isbn));
     }
 
-    if(title) {
-        filteredBooks = filteredBooks.filter(book => book.title.includes(title))
+    if (title) {
+      filteredBooks = filteredBooks.filter((book) =>
+        book.title.includes(title)
+      );
     }
 
     if (author) {
-        filteredBooks = filteredBooks.filter(book => book.author.includes(author))
+      filteredBooks = filteredBooks.filter((book) =>
+        book.author.includes(author)
+      );
     }
 
     if (genre) {
-        filteredBooks = filteredBooks.filter(book => book.genre.includes(genre))
-    }
-    
-    if(publicationYear) {
-        filteredBooks = filteredBooks.filter(book => book.publicationYear == publicationYear)
+      filteredBooks = filteredBooks.filter((book) =>
+        book.genre.includes(genre)
+      );
     }
 
-    res.json(filteredBooks);
+    if (publicationYear) {
+      filteredBooks = filteredBooks.filter(
+        (book) => book.publicationYear == publicationYear
+      );
+    }
+
+    res.render('books', {title: 'My Library', books: filteredBooks});
   })
   // add a new book (requires isbn, title, author, description, genre, and publication year)
   .post((req, res) => {
@@ -58,6 +66,23 @@ router
       res.status(400).json({ error: "insufficient data to add book" });
     }
   });
+
+router.get("/newBook", (req, res) => {
+  const formConfig = {
+    title: "Add a new book",
+    action: "/books/",
+    fields: [
+      { name: "isbn", type: "text", placeholder: "isbn" },
+      { name: "title", type: "text", placeholder: "title" },
+      { name: "author", type: "text", placeholder: "author" },
+      { name: "description", type: "textarea", placeholder: "description" },
+      { name: "genre", type: "text", placeholder: "genre" },
+      { name: "publicationYear", type: "text", placeholder: "publication year" }
+    ],
+  };
+
+  res.render('form', {formConfig})
+});
 
 router
   .route("/:bookId")
@@ -90,17 +115,17 @@ router
   // delete a single book
   .delete((req, res) => {
     const book = books.find((b, i) => {
-        if(b.id == req.params.bookId){
-            books.splice(i, 1)
-            return true
-        }
-    })
+      if (b.id == req.params.bookId) {
+        books.splice(i, 1);
+        return true;
+      }
+    });
     if (book) {
-        res.json(book)
+      res.json(book);
     } else {
-        res.status(404).json({error: 'book not found'})
+      res.status(404).json({ error: "book not found" });
     }
-  })
+  });
 
 // get all reviews for a specific book
 router.route("/:bookId/reviews").get((req, res) => {
@@ -120,10 +145,10 @@ router.route("/:bookId/reviews/:userId").get((req, res) => {
     (review) =>
       review.bookId == req.params.bookId && review.userId == req.params.userId
   );
-  if(reviewsByUser.length > 0){
-    res.json(reviewsByUser)
+  if (reviewsByUser.length > 0) {
+    res.json(reviewsByUser);
   } else {
-    res.status(404).json({error: 'reviews not found'})
+    res.status(404).json({ error: "reviews not found" });
   }
 });
 

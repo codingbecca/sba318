@@ -26,6 +26,20 @@ router
         }
     })
 
+router.get('/newReview', (req, res) => {
+    const formConfig = {
+        title: "Add a new review",
+        action: "/reviews/",
+        fields: [
+          { name: "userId", type: "text", placeholder: "user ID" },
+          { name: "bookId", type: "text", placeholder: "book ID" },
+          { name: "review", type: "textarea", placeholder: "review" },
+        ],
+      };
+    
+      res.render('form', {formConfig})
+})
+
 router
     .route('/:reviewId')
     // get a single review by id

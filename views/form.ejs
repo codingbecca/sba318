@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=formConfig.title %></title>
+</head>
+<body>
+    <h1><%= formConfig.title %></h1>
+    <form action="<%=formConfig.action%>" method="POST">
+        <% formConfig.fields.forEach(field => { %>
+            <% if (field.type === "textarea") { %>
+                <label><%= field.placeholder %></label>
+                <textarea name="<%= field.name %>" placeholder="<%= field.placeholder %>"></textarea>
+            <% } else { %>
+                <label><%= field.placeholder %></label>
+                <input type="<%= field.type %>" name="<%= field.name %>" placeholder="<%= field.placeholder %>">
+            <% } %>
+            <br>
+        <% }); %>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

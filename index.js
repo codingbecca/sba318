@@ -9,8 +9,9 @@ const reviewsRouter = require('./routes/reviews')
 const usersRouter = require('./routes/users')
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.json());
 
+app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
     res.send('This is the home page')
