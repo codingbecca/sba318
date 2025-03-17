@@ -28,14 +28,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((err, req, res, next) => {
-  if (err) {
-    console.error(err.stack);
-    res
-      .status(err.status || 500)
-      .json({ error: err.message || "internal server error" });
-  }
-});
 
 
 app.get("/", (req, res) => {
@@ -45,6 +37,15 @@ app.get("/", (req, res) => {
 app.use("/books", booksRouter);
 app.use("/reviews", reviewsRouter);
 app.use("/users", usersRouter);
+
+app.use((err, req, res, next) => {
+  if (err) {
+    console.error(err.stack);
+    res
+      .status(err.status || 500)
+      .json({ error: err.message || "internal server error" });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`server is listening on port ${PORT}`);
